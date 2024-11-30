@@ -3,6 +3,7 @@ import pygame
 from circleshape import CircleShape
 from shot import Shot
 from constants import *
+from sounds import rocket_engine_sound, shoot_sound
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -39,6 +40,7 @@ class Player(CircleShape):
 
         if keys[pygame.K_w]:
             self.move(dt)
+            rocket_engine_sound.play()
         if keys[pygame.K_a]:
             self.rotate(-dt)
         if keys[pygame.K_s]:
@@ -49,9 +51,10 @@ class Player(CircleShape):
             self.shoot()
 
     def shoot(self):
-        if (self.shoot_cooldown > 0):
+        if self.shoot_cooldown > 0:
             return
         
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0,1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
         self.shoot_cooldown = PLAYER_SHOOT_COOLDOWN
+        shoot_sound.play()  # Play shooting sound

@@ -1,5 +1,6 @@
 import pygame
 
+from sounds import background_music_1
 from asteroid import Asteroid
 from scoreboard import Scoreboard
 from shot import Shot
@@ -39,6 +40,8 @@ def main():
     asteroid_field = AsteroidField()
 
     dt = 0 
+
+    background_music_1.play(-1)
 
     while True:
         for event in pygame.event.get():

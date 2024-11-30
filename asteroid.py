@@ -3,7 +3,7 @@ import pygame
 
 from circleshape import CircleShape
 from constants import *
-
+from sounds import explosion_2_sound, explosion_1_sound
 
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
@@ -19,8 +19,10 @@ class Asteroid(CircleShape):
         self.kill()
         # Simply kill asteroid if min radius
         if (self.radius <= ASTEROID_MIN_RADIUS):
+            explosion_2_sound.play()
             return
         
+        explosion_1_sound.play()        
         breakoff_angle = random.uniform(20, 50)
         new_asteroid_radius = self.radius - ASTEROID_MIN_RADIUS
         asteroid_1 = Asteroid(self.position.x, self.position.y, new_asteroid_radius)
