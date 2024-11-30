@@ -8,7 +8,12 @@ class IntroScreen(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-    def draw(self, screen):
+    def draw(self, screen, final_score):
+        # Conditionally draw final score
+        if final_score:
+            final_score_text = base_font.render(f'Score: {final_score}', False, white)
+            screen.blit(final_score_text, ((SCREEN_WIDTH - final_score_text.get_width()) // 2, (SCREEN_HEIGHT - final_score_text.get_height()) //2 - 100))
+
         # Draw heading
         heading = heading_font.render('Asteroids', False, white)
         screen.blit(heading, ((SCREEN_WIDTH - heading.get_width()) // 2, (SCREEN_HEIGHT - heading.get_height()) //2))

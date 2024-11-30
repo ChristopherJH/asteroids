@@ -54,6 +54,8 @@ def main():
             if not is_play and keys[pygame.K_SPACE]:
                 player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
                 is_play = True
+                for asteroid in asteroids:
+                    asteroid.kill()
 
         
         for obj in updatable:
@@ -63,11 +65,13 @@ def main():
         for i, asteroid in enumerate(asteroids):
             if player and asteroid.collides_with(player):
                 player.damage(asteroid.radius)
+
                 if player.health <= 0:
                     print("Game over! Score:", scoreboard.score)
-                    pygame.mixer.quit()
+                    player.kill()
                     asteroid_field.kill()
-                    return
+                    is_play = False
+                    
                 
             asteroids_list = list(asteroids)
             if i < len(asteroids_list) - 1:
@@ -83,13 +87,13 @@ def main():
 
         for obj in drawable:
             if isinstance(obj, Scoreboard):
-                if player:
+                if player and is_play is True:
                     obj.draw(screen, player.health / PLAYER_HEALTH * 100)
             else:
                 obj.draw(screen)
         
         if not is_play:
-            introScreen.draw(screen)
+            introScreen.draw(screen, scoreboard.score)
 
 
         pygame.display.flip()

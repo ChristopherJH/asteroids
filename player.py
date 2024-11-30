@@ -71,8 +71,6 @@ class Player(CircleShape):
     def damage(self, damage):
         if self.damage_cooldown > 0:
             return
-        self.health -= damage
+        self.health = self.health - damage if self.health > damage else 0
         collision_sound.play()
         self.damage_cooldown = PLAYER_DAMAGE_COOLDOWN
-        if self.health <= 0:
-            self.kill()
