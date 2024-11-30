@@ -27,11 +27,11 @@ def main():
     asteroids: list[Asteroid] = pygame.sprite.Group()
     shots: list[Shot] = pygame.sprite.Group()
 
-    Scoreboard.containers = (updatable, drawable)
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
-    Shot.containers = (shots, updatable, drawable)
     AsteroidField.containers = (updatable)
+    Shot.containers = (shots, updatable, drawable)
+    Scoreboard.containers = (updatable, drawable)
     
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     scoreboard = Scoreboard()
@@ -52,13 +52,20 @@ def main():
             obj.update(dt)
 
         screen.fill("black")
-        for asteroid in asteroids:
+        for i, asteroid in enumerate(asteroids):
             if asteroid.collides_with(player):
                 player.damage(asteroid.radius)
                 if player.health <= 0:
                     print("Game over! Score:", scoreboard.score)
                     pygame.mixer.quit()
+                    asteroid_field.kill()
                     return
+                
+            asteroids_list = list(asteroids)
+            if i < len(asteroids_list) - 1:
+                for asteroid_2 in asteroids_list[i+1:]:
+                    if asteroid.collides_with(asteroid_2):
+                        asteroid.collide_with_asteroid(asteroid_2)
             
             for shot in shots:
                 if shot.collides_with(asteroid):
@@ -68,7 +75,7 @@ def main():
 
         for obj in drawable:
             if isinstance(obj, Scoreboard):
-                obj.draw(screen, player.health / PLAYER_HEALTH * 100)  # Pass player's health to Scoreboard's draw method
+                obj.draw(screen, player.health / PLAYER_HEALTH * 100) 
             else:
                 obj.draw(screen)
 
