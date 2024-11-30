@@ -67,11 +67,10 @@ def main():
                 player.damage(asteroid.radius)
 
                 if player.health <= 0:
-                    print("Game over! Score:", scoreboard.score)
                     player.kill()
                     asteroid_field.kill()
                     is_play = False
-                    
+                    break  # Exit the asteroids loop if game over
                 
             asteroids_list = list(asteroids)
             if i < len(asteroids_list) - 1:
@@ -93,7 +92,7 @@ def main():
                 obj.draw(screen)
         
         if not is_play:
-            introScreen.draw(screen, scoreboard.score)
+            introScreen.draw(screen, scoreboard.score, scoreboard.highscore)
 
 
         pygame.display.flip()

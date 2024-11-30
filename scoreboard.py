@@ -12,9 +12,13 @@ class Scoreboard(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.score = 0
+        self.highscore = 0
     
     def increase_score(self):
-        self.score += SCOREBOARD_ASTEROID_POINTS
+        new_score = self.score + SCOREBOARD_ASTEROID_POINTS
+        if new_score > self.highscore:
+            self.highscore = new_score
+        self.score = new_score
 
     def draw(self, screen, health_percent):
         # Draw score

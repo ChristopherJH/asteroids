@@ -2,5 +2,7 @@ import pygame
 
 
 pygame.font.init()
-base_font = pygame.font.Font('assets/PixelifySans.ttf', 32)
-heading_font = pygame.font.Font('assets/PixelifySans.ttf', 64)
+pixelify = 'assets/PixelifySans.ttf'
+base_font = pygame.font.Font(pixelify, 32)
+heading_font = pygame.font.Font(pixelify, 64)
+sub_heading_font = pygame.font.Font(pixelify, 40)
