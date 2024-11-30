@@ -3,6 +3,7 @@ import pygame
 from sounds import background_music_1
 from asteroid import Asteroid
 from scoreboard import Scoreboard
+from introscreen import IntroScreen
 from shot import Shot
 from asteroidfield import AsteroidField
 from constants import *
@@ -33,13 +34,15 @@ def main():
     Shot.containers = (shots, updatable, drawable)
     Scoreboard.containers = (updatable, drawable)
     
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     scoreboard = Scoreboard()
     updatable.add(scoreboard)
     drawable.add(scoreboard)
     asteroid_field = AsteroidField()
+    introScreen = IntroScreen()
 
-    dt = 0 
+    dt = 0
+    is_play = False
+    player = None
 
     background_music_1.play(-1)
 
@@ -47,13 +50,18 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+            keys = pygame.key.get_pressed()
+            if not is_play and keys[pygame.K_SPACE]:
+                player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+                is_play = True
+
         
         for obj in updatable:
             obj.update(dt)
 
         screen.fill("black")
         for i, asteroid in enumerate(asteroids):
-            if asteroid.collides_with(player):
+            if player and asteroid.collides_with(player):
                 player.damage(asteroid.radius)
                 if player.health <= 0:
                     print("Game over! Score:", scoreboard.score)
@@ -75,9 +83,14 @@ def main():
 
         for obj in drawable:
             if isinstance(obj, Scoreboard):
-                obj.draw(screen, player.health / PLAYER_HEALTH * 100) 
+                if player:
+                    obj.draw(screen, player.health / PLAYER_HEALTH * 100)
             else:
                 obj.draw(screen)
+        
+        if not is_play:
+            introScreen.draw(screen)
+
 
         pygame.display.flip()
 
