@@ -54,8 +54,11 @@ def main():
         screen.fill("black")
         for asteroid in asteroids:
             if asteroid.collides_with(player):
-                print("Game over! High score: ", scoreboard.score)
-                return
+                player.damage(asteroid.radius)
+                if player.health <= 0:
+                    print("Game over! Score:", scoreboard.score)
+                    pygame.mixer.quit()
+                    return
             
             for shot in shots:
                 if shot.collides_with(asteroid):
@@ -64,7 +67,10 @@ def main():
                     asteroid.split()
 
         for obj in drawable:
-            obj.draw(screen)
+            if isinstance(obj, Scoreboard):
+                obj.draw(screen, player.health / PLAYER_HEALTH * 100)  # Pass player's health to Scoreboard's draw method
+            else:
+                obj.draw(screen)
 
         pygame.display.flip()
 
