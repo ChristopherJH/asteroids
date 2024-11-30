@@ -1,9 +1,9 @@
 import random
 import pygame
 
-from circleshape import CircleShape
-from constants import *
-from sounds import explosion_2_sound, explosion_1_sound
+from src.ui.circle_shape import CircleShape
+from src.utils.constants import *
+from src.utils.sounds import explosion_2_sound, explosion_1_sound
 
 explosion_2_sound.set_volume(0.2)
 

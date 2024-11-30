@@ -1,6 +1,6 @@
 import pygame
-from constants import *
-from fonts import base_font, heading_font, sub_heading_font
+from src.utils.constants import *
+from src.utils.fonts import base_font, heading_font, sub_heading_font
 
 white = (255, 255, 255)
 

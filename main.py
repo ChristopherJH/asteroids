@@ -1,13 +1,13 @@
 import pygame
 
-from sounds import background_music_1
-from asteroid import Asteroid
-from scoreboard import Scoreboard
-from introscreen import IntroScreen
-from shot import Shot
-from asteroidfield import AsteroidField
-from constants import *
-from player import Player
+from src.utils.sounds import background_music_1
+from src.entities.asteroid import Asteroid
+from src.ui.scoreboard import Scoreboard
+from src.ui.intro_screen import IntroScreen
+from src.entities.shot import Shot
+from src.utils.asteroid_field import AsteroidField
+from src.utils.constants import *
+from src.entities.player import Player
 
 pygame.init()
 

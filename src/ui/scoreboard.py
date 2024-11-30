@@ -1,6 +1,6 @@
 import pygame
-from constants import *
-from fonts import base_font
+from src.utils.constants import *
+from src.utils.fonts import base_font
 
 white = (255, 255, 255)
 off_white = (240, 240, 240)

@@ -1,9 +1,9 @@
 import pygame
 
-from circleshape import CircleShape
-from shot import Shot
-from constants import *
-from sounds import shoot_sound, collision_sound
+from src.ui.circle_shape import CircleShape
+from src.entities.shot import Shot
+from src.utils.constants import *
+from src.utils.sounds import shoot_sound, collision_sound
 
 white = (255, 255, 255)
 
